@@ -1,0 +1,4 @@
+target:  
+  - url: "docs/"
+include: ["copyparty"]
+reinit: "random-string"
