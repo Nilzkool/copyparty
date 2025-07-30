@@ -1,15 +1,11 @@
 **NOTE:** there's more stuff (sharex config, service scripts, nginx configs, ...) in [`/contrib/`](/contrib/)
 
-
-
 # utilities
 
 ## [`multisearch.html`](multisearch.html)
 * takes a list of filenames of youtube rips, grabs the youtube-id of each file, and does a search on the server for those
 * use it by putting it somewhere on the server and opening it as an html page
 * also serves as an extendable template for other specific search behaviors
-
-
 
 # other stuff
 
@@ -34,7 +30,8 @@
 ## [`rclone.md`](rclone.md)
 * notes on using rclone as a fuse client/server
 
-
+## [`idp.md`](idp.md)
+* identity provider (IdP) authentication integration and client configuration
 
 # junk
 

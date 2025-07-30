@@ -11,73 +11,67 @@ when server is on another machine (1gbit LAN),
 * `92 MiB/s` with rclone-client and `copyparty -ed` as server
 * `103 MiB/s` (connection max) with `copyparty -ed -j16` and all the others
 
-
 # creating the config file
 
-the copyparty "connect" page at `/?hc` (so for example http://127.0.0.1:3923/?hc) will generate commands to autoconfigure rclone for your server
+the copyparty "connect" page at `/?hc` (for example http://127.0.0.1:3923/?hc) will generate commands to autoconfigure rclone for your server
 
 **if you prefer to configure rclone manually, continue reading:**
 
-replace `hunter2` with your password, or remove the `hunter2` lines if you allow anonymous access
-
+replace `hunter2` with your password, or remove the `pass = hunter2` line if anonymous access is allowed
 
 ### on windows clients:
-```
-(
-echo [cpp-rw]
-echo type = webdav
-echo vendor = owncloud
-echo url = http://127.0.0.1:3923/
-echo headers = Cookie,cppwd=hunter2
-echo pacer_min_sleep = 0.01ms
-echo(
-echo [cpp-ro]
-echo type = http
-echo url = http://127.0.0.1:3923/
-echo headers = Cookie,cppwd=hunter2
-echo pacer_min_sleep = 0.01ms
-) > %userprofile%\.config\rclone\rclone.conf
-```
 
-also install the windows dependencies: [winfsp](https://github.com/billziss-gh/winfsp/releases/latest)
+Install [WinFsp](https://github.com/billziss-gh/winfsp/releases/latest) and rclone.
 
+Create (or edit) `%USERPROFILE%\.config\rclone\rclone.conf` with:
 
-### on unix clients:
 ```
-cat > ~/.config/rclone/rclone.conf <<'EOF'
-[cpp-rw]
+[cpp-dav]
 type = webdav
 vendor = owncloud
 url = http://127.0.0.1:3923/
-headers = Cookie,cppwd=hunter2
 pacer_min_sleep = 0.01ms
+user = k
+pass = hunter2
+```
 
-[cpp-ro]
-type = http
+### on unix clients:
+
+```
+cat > ~/.config/rclone/rclone.conf <<'EOF'
+[cpp-dav]
+type = webdav
+vendor = owncloud
 url = http://127.0.0.1:3923/
-headers = Cookie,cppwd=hunter2
 pacer_min_sleep = 0.01ms
+user = k
+pass = hunter2
 EOF
 ```
 
-
 # mounting the copyparty server locally
 
-connect to `cpp-rw:` for read-write, or `cpp-ro:` for read-only (twice as fast):
-
+Read-write mount:
 ```
-rclone.exe mount --vfs-cache-mode writes --vfs-cache-max-age 5s --attr-timeout 5s --dir-cache-time 5s cpp-rw: W:
+rclone mount --vfs-cache-mode writes --dir-cache-time 5s cpp-dav: /mnt/copyparty
 ```
 
+On Windows use a drive letter:
+```
+rclone.exe mount --vfs-cache-mode writes --dir-cache-time 5s cpp-dav: W:
+```
+
+**Tips:**
+* If your Copyparty server uses HTTPS with a self-signed certificate, add `--no-check-certificate`.
+* To allow other users to access the mount on Linux, add `--allow-other`.
 
 # sync folders to/from copyparty
 
-note that the up2k client [u2c.py](https://github.com/9001/copyparty/tree/hovudstraum/bin#u2cpy) (available on the "connect" page of your copyparty server) does uploads much faster and safer, but rclone is bidirectional and more ubiquitous
+Note that the up2k client [u2c.py](https://github.com/9001/copyparty/tree/hovudstraum/bin#u2cpy) (available on the "connect" page of your copyparty server) does uploads much faster and safer, but rclone is bidirectional and more ubiquitous
 
 ```
-rclone sync /usr/share/icons/ cpp-rw:fds/
+rclone sync /usr/share/icons/ cpp-dav:icons/
 ```
-
 
 # use rclone as server too, replacing copyparty
 
@@ -87,7 +81,6 @@ feels out of place but is too good not to mention
 rclone.exe serve http --read-only .
 rclone.exe serve webdav .
 ```
-
 
 # devnotes
 

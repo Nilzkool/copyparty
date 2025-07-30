@@ -1,5 +1,5 @@
-> [!WARNING]  
-> I am unable to guarantee the quality, safety, and security of anything in this folder; it is a combination of examples I found online. Please submit corrections or improvements 🙏
+[!WARNING]
+I am unable to guarantee the quality, safety, and security of anything in this folder; it is a combination of examples I found online. Please submit corrections or improvements 🙏
 
 to try this out with minimal adjustments:
 * specify what filesystem-path to share with copyparty, replacing the default/example value `/srv/pub` in `docker-compose.yml`
@@ -8,7 +8,7 @@ to try this out with minimal adjustments:
 * login to https://fs.example.com/ with username `authelia` password `authelia`
 
 to use this in a safe and secure manner:
-* follow a guide on setting up authelia properly (TODO:link) and use the copyparty-specific parts of this folder as inspiration for your own config; namely the `cpp` subfolder and the `copyparty` service in `docker-compose.yml`
+* follow a guide on setting up authelia properly ([the official IdP docs](https://github.com/Nilzkool/copyparty/blob/hovudstraum/docs/idp.md)) and use the copyparty-specific parts of this folder as inspiration for your own config; namely the `cpp` subfolder and the `copyparty` service in `docker-compose.yml`
 
 this folder is based on:
 * https://github.com/authelia/authelia/tree/39763aaed24c4abdecd884b47357a052b235942d/examples/compose/lite

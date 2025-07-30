@@ -26,6 +26,7 @@ manual network port publishing:
 
 advanced -> command & logging:
   console = interactive & tty
+  command arguments = -c /cfg/party.conf
 
 advanced -> volumes -> map additional volume:
   container = /cfg  [Bind]
@@ -34,12 +35,11 @@ advanced -> volumes -> map additional volume:
 advanced -> volumes -> map additional volume:
   container = /w  [Bind]
   host = /srv/pub  [Writable]
-```
+```  
 
 notes:
 
-* `/cfg` is where copyparty expects to find its config files; `/etc/copyparty` is just an example mapping to that
+* `/cfg` is where copyparty will look for any `-c` config files
+* by passing `-c /cfg/<your.conf>` you ensure copyparty loads your custom settings
 
-* `/w` is where copyparty expects to find the folder to share; `/srv/pub` is just an example mapping to that
-
-* the volumes must be bind-mounts to avoid permission issues (or so the theory goes)
+*the above `command arguments` line tells the container where to find your config.*

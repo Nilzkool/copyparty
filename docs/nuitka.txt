@@ -1,4 +1,4 @@
-﻿# recipe for building an exe with nuitka (extreme jank edition)
+# recipe for building an exe with nuitka (extreme jank edition)
 
 NOTE: copyparty runs SLOWER when compiled with nuitka;
   just use copyparty-sfx.py and/or pyinstaller instead
@@ -28,7 +28,7 @@ NOTE: nuitka takes a lot longer to build than pyinstaller
 NOTE: binaries built with nuitka cannot run on windows7,
   even when compiled with python 3.6 on windows 7 itself
 
-NOTE: `--python-flags=-m` is the magic sauce to
+NOTE: `--python-flag=-m` is the magic sauce to
   correctly compile `from .util import Daemon`
   (which otherwise only explodes at runtime)
 
@@ -36,7 +36,6 @@ NOTE: `--deployment` doesn't seem to affect performance
 
 ########################################################################
 # copypaste the rest of this file into cmd
-
 
 
 python -m pip install --user -U nuitka
@@ -68,4 +67,3 @@ python -m nuitka ^
   --include-data-dir=copyparty\web=copyparty\web ^
   --include-data-dir=copyparty\res=copyparty\res ^
   --run copyparty
-

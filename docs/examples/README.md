@@ -1,4 +1,4 @@
 copyparty server config examples
 
-[windows.md](windows.md) -- running copyparty as a service on windows
-
+* windows.md -- running copyparty as a service on windows
+* docker/README.md -- Docker deployment examples (basic, idp, portainer)
